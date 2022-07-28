@@ -1,0 +1,29 @@
+{
+  "name": "Tabular",
+  "description": "A simple yet effective chrome extension allowing you to manage your tabs in a single html page.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "permissions": ["storage", "tabs", "activeTab", "scripting", "tabs", "notifications"],
+  "host_permissions": ["*://*/*", "http://*/", "https://*/"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline'"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/tabular16.png",
+      "32": "/images/tabular32.png",
+      "48": "/images/tabular48.png",
+      "128": "/images/tabular128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/tabular16.png",
+    "32": "/images/tabular32.png",
+    "48": "/images/tabular48.png",
+    "128": "/images/tabular128.png"
+  }
+}
