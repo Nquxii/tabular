@@ -15,13 +15,11 @@ document.addEventListener('DOMContentLoaded', async() => {
         const tabrow = document.createElement('tr');
         tabrow.id = "tab-row" + index;
 
-        
         // Create index column
         const indexCol = document.createElement('td');
         indexCol.textContent = index;
         indexCol.classList.add("indice");
         indexCol.id = "index-" + index;
-
 
         // Create column including tab title + hyperlink
         const savedColumn = document.createElement('td');
@@ -37,31 +35,30 @@ document.addEventListener('DOMContentLoaded', async() => {
         // Append anchor tab to savedColumn (not row)
         savedColumn.appendChild(hyperlink);
          
-         
-        // Options column ('management' menu)
-        const optionsColumn = document.createElement('td');
-
-        // Button / anchortag
+        // removeColumn ('management' menu)
+        const removeColumn = document.createElement('td');
         const remove_button = document.createElement('a');
-        
+         
         // Create a button to allow the removal of its row
         const remove_icon = document.createElement('i');
         remove_icon.id = "remove-icon" + index;
          
-        // Set the remove button's id to itself plus its index.
+        // Properties
         remove_button.id = "remove-button" + index;
-        //remove_button.textContent = "remove"; 
-        remove_button.href = "#"; remove_button.classList.add("removebutton");
-        remove_button.classList.add("fa-solid", "fa-xmark", "fa-lg");
+        remove_button.href = "#"; 
+        remove_button.classList.add("remove_button");
+        remove_button.classList.add("close");
         
         remove_button.appendChild(remove_icon);
+        
         // Append hyperlink (anchor tag) to savedColumn
-        optionsColumn.appendChild(remove_button);
+        removeColumn.appendChild(remove_button);
           
+        
         // Append columns to the row it belongs in 
         tabrow.appendChild(indexCol);
         tabrow.appendChild(savedColumn);
-        tabrow.appendChild(optionsColumn);
+        tabrow.appendChild(removeColumn);
           
         // Append row consisting of the column info
         table.appendChild(tabrow);
@@ -78,7 +75,7 @@ clearSaved.addEventListener("click", async () => {
     chrome.storage.sync.clear();
 });
 
-/* Remove a saved tab */
+/* Remove a saved tab or save a given tab */
 document.addEventListener('click', function(e) {
     // Set the table element to saved-table
     table = document.getElementById("saved-table");
@@ -86,17 +83,11 @@ document.addEventListener('click', function(e) {
     // Iterate through rows in order to determine if any is clicked
     for (var i = 0, row; row = table.rows[i]; i++) {
         // set the remove button as its element id
-        var removebutton = row.getElementsByTagName('a')[1];
-        console.log("RemoveButton:", removebutton);
+        var remove_button = row.getElementsByTagName('a')[1];
         
-        // Detect whether or not a button has been pressed
-        if(e.target && e.target.id == removebutton.id){
-            // Obtain the button referring to the row
-            const savedTab = document.getElementById(removebutton.id);
-             
+        if(e.target && e.target.id == remove_button.id){
             // Obtain the <td> element containing the anchor tag
-            var tabInfo = savedTab.parentNode.previousSibling;
-            console.log("tabInfo", tabInfo);
+            var tabInfo = remove_button.parentNode.previousSibling;
             
             // Get the title of the tab which will be used to remove it
             var removalTab = tabInfo.getElementsByTagName('a')[0].innerHTML;
@@ -106,11 +97,9 @@ document.addEventListener('click', function(e) {
                 var error = chrome.runtime.lastError;
                 if (error) { console.error(error); }
             });
-
-            // ReIndex the table 
-            reIndex(table, savedTab);
             
-            // Remove the HTML from the page
+            // Change index order of tabs & delete HTML from the page
+            reIndex(table, remove_button);
             row.parentNode.removeChild(row);
         }
     }
@@ -120,16 +109,15 @@ document.addEventListener('click', function(e) {
 function reIndex(table, indexRow) {
     // Get the index of the deleted tab
     deleted_index = indexRow.parentNode.previousSibling.previousSibling.textContent;
-    console.log("Deleted Index:", deleted_index);
 
+    // Loop through deleted tab to the last tab and set its value as the correct index
     for (i = Number(deleted_index); i < table.rows.length; i++){
-        var unindexed_tab = document.getElementById('saved-table').rows[i].cells[0];
+        var unindexed_tab = table.rows[i].cells[0];
         
         unindexed_tab.id = "index-" + i;
         unindexed_tab.textContent = i;
     }
 }
-
 
 /* TO-DO
  * - remove superflous comments

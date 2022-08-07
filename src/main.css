@@ -1,36 +1,20 @@
-body, p, a, h1, th, table, td, button{
+/* Universal */
+body, p, a, h1, th, table, td, button {
     font-family: 'Inter', sans-serif;
 }
 
-button {
-  border: none;
-  color: black;
-  padding: 2px 0px;
-  text-align: center;
-  text-decoration: underline;
-  background: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  /*text-decoration: none;*/
-  /*display: inline-block;*/
-  /*font-size: 16px;      */
+html {
+    width: 655px;
+    height: 2px;
 }
 
-/* Anchor tags should have no design*/
-button a {
-    color: #000000;
-    text-decoration: none;
+body {
+    width: 650px;
+    height: 20px;
+    overflow-y: scroll;
 }
 
-a {
-    color: inherit;
-    text-decoration: none !important;
-}
-
-a:visited { text-decoration: none; color: black;}
-a:hover { text-decoration: underline; color: black; }
-a:focus { text-decoration: none; color: black; }
-
+/* Table */
 th {
     text-align: left;
     padding: 5px;
@@ -41,6 +25,66 @@ td {
     padding: 7px;
 }
 
+/* Anchor tags should have no design */
+button {
+  border: none;
+  color: black;
+  text-align: center;
+  background: none;
+  cursor: pointer;
+  padding: 2px 0px;
+  margin: 4px 2px;
+}
+
+button a {
+    text-decoration: none;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+a {
+    color: #000000;
+    text-decoration: none !important;
+}
+
+/* Close x-mark */
+.close {
+  position: static;
+  right: 32px;
+  top: 70px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before, .close:after {
+  position: absolute;
+  margin-bottom: 90px;
+  left: 640px;
+  content: ' ';
+  height: 15px;
+  width: 2px;
+  background-color: #333;
+  margin-bottom: 90px;
+  margin-top: -5px;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+
+/* Title properties */
 .saved-tab a, .opened-tab a {
     display: block;
     white-space: nowrap;
