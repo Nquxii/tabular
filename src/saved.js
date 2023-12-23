@@ -123,6 +123,5 @@ function reIndex(table, indexRow) {
  * - remove superflous comments
  * - code up better UI
  * - add export to csv and export to json features
- * - add save/remove buttons to the tab overview
  * - improve engineering of main features (classes)
  * */

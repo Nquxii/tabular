@@ -1,6 +1,6 @@
 {
   "name": "Tabular",
-  "description": "A simple yet effective chrome extension allowing you to manage your tabs in a single html page.",
+  "description": "A simple, effective chrome extension allowing you to manage your tabs in a single html page.",
   "version": "1.0",
   "manifest_version": 3,
   "background": {

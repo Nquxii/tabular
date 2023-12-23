@@ -1,3 +1,9 @@
+/* Note:
+ * Chrome Extensions don't allow you to have inline JavaScript
+ * Therefore, I've used eventListeners for onClick events.
+ * See: https://stackoverflow.com/questions/13591983/onclick-or-inline-script-isnt-working-in-extension
+ */
+
 /* DISPLAY TABS ON OPEN */
 document.addEventListener('DOMContentLoaded', async() => {
     // Get tabs via chrome query
